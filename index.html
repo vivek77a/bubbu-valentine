@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Bubbu 💖</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,sans-serif}
+body{
+background:linear-gradient(135deg,#ffd6e8,#ffeef5,#f3d1ff);
+overflow:hidden;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+color:#ff2e7a;
+}
+
+.slide{
+position:absolute;
+width:100%;
+height:100%;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+opacity:0;
+transition:1s;
+pointer-events:none;
+}
+
+.active{opacity:1;pointer-events:auto;}
+
+h1{font-size:2.3rem;margin-bottom:15px}
+p{max-width:80%;margin-bottom:20px}
+
+button{
+padding:12px 25px;
+border:none;
+border-radius:30px;
+cursor:pointer;
+margin:8px;
+font-size:1rem;
+transition:0.3s;
+}
+
+.yes{background:#ff4d94;color:white}
+.no{background:#444;color:white;position:relative}
+.next{background:white;color:#ff2e7a}
+
+img{
+width:250px;
+border-radius:20px;
+margin:10px;
+box-shadow:0 0 20px rgba(255,0,120,0.3);
+}
+
+/* Sparkles */
+.sparkle{
+position:absolute;
+color:white;
+font-size:12px;
+animation:spark 3s linear infinite;
+}
+@keyframes spark{
+0%{transform:translateY(0);opacity:1}
+100%{transform:translateY(-800px);opacity:0}
+}
+
+/* Fireworks */
+.firework{
+position:absolute;
+width:6px;
+height:6px;
+background:#ff2e7a;
+border-radius:50%;
+animation:explode 1s ease-out forwards;
+}
+@keyframes explode{
+to{
+transform:translate(var(--x),var(--y));
+opacity:0;
+}
+}
+
+/* Valentine Letters */
+.letters span{
+font-size:2rem;
+margin:5px;
+display:inline-block;
+opacity:0;
+animation:fadeIn 0.5s forwards;
+}
+@keyframes fadeIn{
+to{opacity:1;transform:scale(1.2)}
+}
+</style>
+</head>
+
+<body>
+
+<!-- SLIDE 1 -->
+<div class="slide active" id="slide1">
+<h1>Bubbu 😏</h1>
+<p>I have something for you… but you can't press NO 😈</p>
+<button class="yes" onclick="nextSlide(2)">Okayyy 💖</button>
+<button class="no" id="no1">No 😜</button>
+</div>
+
+<!-- SLIDE 2 -->
+<div class="slide" id="slide2">
+<h1>Look at You 😍</h1>
+<img src="p1.png">
+<p>How are you THIS cute and still acting innocent? 😂</p>
+<button class="next" onclick="nextSlide(3)">Next 😆</button>
+</div>
+
+<!-- SLIDE 3 -->
+<div class="slide" id="slide3">
+<h1>Us >>> World 💕</h1>
+<img src="p2.png">
+<p>This hug is now permanently stored in my heart 😌</p>
+<button class="next" onclick="nextSlide(4)">Continue 😏</button>
+</div>
+
+<!-- SLIDE 4 -->
+<div class="slide" id="slide4">
+<h1>One More Thing 😌</h1>
+<img src="p3.png">
+<p>Will you be my forever Valentine? 💖</p>
+<button class="yes" onclick="nextSlide(5)">YESSS 😭💘</button>
+<button class="no" id="no2">No 😏</button>
+</div>
+
+<!-- SLIDE 5 -->
+<div class="slide" id="slide5">
+<h1>Waittt 😳</h1>
+<p>Access Denied ❌ You cannot say No 😂</p>
+<button class="next" onclick="nextSlide(6)">Fineee 💖</button>
+</div>
+
+<!-- SLIDE 6 - VALENTINE LETTER -->
+<div class="slide" id="slide6">
+<h1>V A L E N T I N E 💌</h1>
+
+<div class="letters" id="letters"></div>
+
+<br><br>
+
+<img src="p4.png">
+<img src="p1.png">
+<img src="p2.png">
+<img src="p3.png">
+
+<h2 style="margin-top:15px">Happy Valentine's Day Bubbu 💖</h2>
+</div>
+
+<script>
+
+/* Slide Function */
+function nextSlide(n){
+document.querySelectorAll('.slide').forEach(s=>s.classList.remove('active'));
+document.getElementById('slide'+n).classList.add('active');
+if(n==6){
+startLetters();
+startFireworks();
+}
+}
+
+/* Flying No Buttons */
+function fly(btn){
+btn.style.position="absolute";
+btn.style.top=Math.random()*80+"%";
+btn.style.left=Math.random()*80+"%";
+}
+
+document.getElementById("no1").onmouseover=function(){fly(this);}
+document.getElementById("no2").onmouseover=function(){fly(this);}
+
+/* Sparkles */
+setInterval(()=>{
+let s=document.createElement("div");
+s.classList.add("sparkle");
+s.innerHTML="✨";
+s.style.left=Math.random()*100+"vw";
+s.style.top="100%";
+document.body.appendChild(s);
+setTimeout(()=>s.remove(),3000);
+},200);
+
+/* Valentine Letter Animation */
+function startLetters(){
+const word="VALENTINE";
+const container=document.getElementById("letters");
+container.innerHTML="";
+word.split("").forEach((l,i)=>{
+let span=document.createElement("span");
+span.textContent=l;
+span.style.animationDelay=(i*0.3)+"s";
+container.appendChild(span);
+});
+}
+
+/* Fireworks */
+function startFireworks(){
+setInterval(()=>{
+for(let i=0;i<20;i++){
+let f=document.createElement("div");
+f.classList.add("firework");
+f.style.left=Math.random()*100+"vw";
+f.style.top=Math.random()*80+"vh";
+f.style.setProperty('--x',(Math.random()*200-100)+"px");
+f.style.setProperty('--y',(Math.random()*200-100)+"px");
+document.body.appendChild(f);
+setTimeout(()=>f.remove(),1000);
+}
+},1500);
+}
+
+</script>
+</body>
+</html>
